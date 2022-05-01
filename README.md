@@ -74,8 +74,8 @@ Uncomment columns one by one and refresh your browser and click `filters` to gau
 
 ### Increasing/Reducing Stress
 
-- The number of rows can be adjusted by increasing or decreasing the `$limit` variable in `app/Models/GeneralLedger.php` and rerunning `php artisan db:seed`
-- Note: the options for the `select filters` are bootstrapped at the time of creation to eliminate database queries as a `stressor`
+- The number of rows can be adjusted by increasing or decreasing the `$limit` variable in `app/Models/GeneralLedger.php` and rerunning `php artisan db:seed`.
+- Note: the options for the `select filters` are bootstrapped at the time of creation.
 
 ```php
 //app/Models/GeneralLedger.php
