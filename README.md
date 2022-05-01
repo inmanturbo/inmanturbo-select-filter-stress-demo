@@ -5,7 +5,7 @@ composer install
 ```
 
 ```bash
-cp cp .env.example .env
+cp .env.example .env
 ```
 
 ```bash
