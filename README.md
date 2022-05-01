@@ -16,7 +16,7 @@ php artisan key:generate
 yarn && yarn run dev
 ```
 
-No migrations are needed, simply run
+No migrations or database configurations are needed, simply run
 
 ```bash
 php artisan db:seed
