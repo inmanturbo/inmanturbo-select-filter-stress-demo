@@ -18,7 +18,7 @@ class GeneralLedger extends Model
         $faker = \Faker\Factory::create();
         $rows = [];
 
-        $limit = 13;
+        $limit = 13000;
 
         for($i = 1; $i <= $limit; $i++) {
             $rows[] = [
