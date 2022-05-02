@@ -32,6 +32,7 @@ class MyTable extends Component
             'columns' => $columns,
             'rows' => [],
             'filters' => [],
+            'perPage' => 10,
         ];
     }
 
@@ -70,7 +71,7 @@ class MyTable extends Component
             }
         }
 
-        $this->state['rows'] = ($paginator = $query->paginate(10))->toArray();
+        $this->state['rows'] = ($paginator = $query->paginate($this->state['perPage']))->toArray();
 
         return view('livewire.my-table', compact('paginator'));
     }
