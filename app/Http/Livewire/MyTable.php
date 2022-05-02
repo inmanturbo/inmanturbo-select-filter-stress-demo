@@ -37,6 +37,7 @@ class MyTable extends Component
 
     public function setFilter($filter, $value = '')
     {
+        $this->resetPage();
         if(strlen($value) > 0) {
             $this->state['filters'][$filter] = $value;
         } elseif(isset($this->state['filters'][$filter])) {
@@ -49,6 +50,7 @@ class MyTable extends Component
         $query = $this->model::query();
 
         if($this->state['search']) {
+            $this->resetPage();
             $query->where($this->columns[0]['name'], 'like', '%'.$this->state['search'].'%');
             foreach($this->columns as $column) {
                 if($column['name'] != $this->columns[0]['name']) {

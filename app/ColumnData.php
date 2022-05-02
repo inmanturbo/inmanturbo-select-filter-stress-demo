@@ -18,6 +18,7 @@ class ColumnData extends Data
         public bool $hasFooterView = false,
         public string $footerView = '',
         public bool $hasSecondaryHeaderView = false,
+        public bool $hasSecondaryHeader = false,
         public string $secondaryHeaderView = '',
         public array $options = [],
     )
@@ -79,6 +80,7 @@ class ColumnData extends Data
     public function secondaryHeaderView(string $view): self
     {
         $this->hasSecondaryHeaderView = true;
+        $this->hasSecondaryHeader = true;
         $this->secondaryHeaderView = $view;
 
         return $this;

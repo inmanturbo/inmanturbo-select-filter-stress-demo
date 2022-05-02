@@ -12,6 +12,7 @@
 
         </tr>
 
+        @if(in_array(needle: true,haystack: array_column(array: $state['columns'],column_key: 'hasSecondaryHeader')))
         <tr>
             @foreach($state['columns'] as $column)
             <th class="{{ $column['secondaryHeaderClass'] }} whitespace-nowrap">
@@ -25,6 +26,7 @@
             </th>
             @endforeach
         </tr>
+        @endif
 
         <tbody>
             @foreach($state['rows']['data'] as $rowKey => $rowData)
