@@ -45,12 +45,16 @@ class MyTable extends Component
         }
     }
 
+    public function updatedStateSearch()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $query = $this->model::query();
 
         if($this->state['search']) {
-            $this->resetPage();
             $query->where($this->columns[0]['name'], 'like', '%'.$this->state['search'].'%');
             foreach($this->columns as $column) {
                 if($column['name'] != $this->columns[0]['name']) {
