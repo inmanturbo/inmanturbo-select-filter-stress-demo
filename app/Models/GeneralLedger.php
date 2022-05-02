@@ -10,7 +10,7 @@ use Sushi\Sushi;
 class GeneralLedger extends Model
 {
     use HasFactory;
-    use Sushi;
+    // use Sushi;
 
 
     public function getRows()
@@ -21,7 +21,7 @@ class GeneralLedger extends Model
         $limit = 13000;
 
         for($i = 1; $i <= $limit; $i++) {
-            $rows[] = [
+            $rows[] = $row = [
                 'year' => rand(2018, 2022),
                 'month' => $faker->monthName(),
                 'date' => $faker->date('m-d-Y'),
@@ -40,6 +40,10 @@ class GeneralLedger extends Model
                 'account' => $faker->randomElement(['Account 1', 'Account 2', 'Account 3']),
                 'memo' => $faker->sentence,
             ];
+            if(!in_array(Sushi::class, class_uses_recursive(get_class($this)), true)){
+
+                $this->create($row);
+            }
         }
         foreach(array_keys($rows[0]) as $key) {
             touch(app()->bootstrapPath('cache/' . $key . '.php'));

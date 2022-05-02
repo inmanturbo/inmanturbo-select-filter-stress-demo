@@ -17,7 +17,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        File::delete(File::glob(storage_path('framework/cache/*.sqlite')));
-        $cachedSushi = GeneralLedger::all();
+        if(in_array(Sushi::class, class_uses_recursive(GeneralLedger::class), true)){
+
+            File::delete(File::glob(storage_path('framework/cache/*.sqlite')));
+        }
+        $factory = (new GeneralLedger)->getRows();
     }
 }
