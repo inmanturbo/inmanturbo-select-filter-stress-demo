@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\GeneralLedger;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,9 @@ Route::get('/my-table', function () {
             ->secondaryHeaderClass('justify-start')
             ->secondaryHeaderView('header-select')
             ->options(include(base_path('bootstrap/cache/year.php')))
+            ->format(function ($value) {
+                return $value . '-01-01';
+            })
             ->toArray(),
         (new \App\ColumnData('month', 'Month'))
             ->class('text-xs p-2')
@@ -135,7 +139,7 @@ Route::get('/my-table', function () {
             ->toArray(),
     ];
 
-    $model = GeneralLedger::class;
+    $model = 'general_ledgers';
 
 
 

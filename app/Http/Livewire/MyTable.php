@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,7 +22,7 @@ class MyTable extends Component
         'setFilter' => 'setFilter',
     ];
 
-    public function mount($columns, $model)
+    public function mount($columns, $model, $config = [])
     {
         $this->model = $model;
 
@@ -32,7 +33,12 @@ class MyTable extends Component
             'columns' => $columns,
             'rows' => [],
             'filters' => [],
-            'perPage' => 10,
+            'perPage' => $config['perPage'] ?? 20,
+            'perPageOptions' => $config['perPageOptions'] ?? [20, 10, 100, 500, 1000],
+            'class' => $config['class'] ?? 'table-auto',
+            'dateFrom' => $config['dateFrom'] ?? null,
+            'dateTo' => $config['dateTo'] ?? null,
+            'dateColumn' => $config['dateColumn'] ?? null,
         ];
     }
 
@@ -53,7 +59,7 @@ class MyTable extends Component
 
     public function render()
     {
-        $query = $this->model::query();
+        $query = DB::table($this->model);
 
         if($this->state['search']) {
             $query->where($this->columns[0]['name'], 'like', '%'.$this->state['search'].'%');
@@ -68,6 +74,18 @@ class MyTable extends Component
         if(count($this->state['filters']) > 0) {
             foreach ($this->state['filters'] as $key => $value) {
                 $query->where($key, $value);
+            }
+        }
+
+        if($this->state['dateColumn']) {
+           
+            if($this->state['dateFrom']) {
+                
+                $query->where( 'date', '>=', $this->state['dateFrom']);
+            }
+            
+            if($this->state['dateTo']) {
+                $query->where('date', '<=', $this->state['dateTo']);
             }
         }
 

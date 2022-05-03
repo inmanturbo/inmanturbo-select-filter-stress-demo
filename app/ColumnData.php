@@ -21,10 +21,24 @@ class ColumnData extends Data
         public bool $hasSecondaryHeader = false,
         public string $secondaryHeaderView = '',
         public array $options = [],
+        public $formatter = null,
     )
     {
 
     }
+
+    public function format($callback)
+    {
+        $this->formatter = $callback;
+
+        return $this;
+    }
+
+    public function value($value)
+    {
+        return call_user_func($this->formatter, $value);
+    }
+
 
     public function options(array $options)
     {

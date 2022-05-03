@@ -24,7 +24,7 @@ class GeneralLedger extends Model
             $rows[] = $row = [
                 'year' => rand(2018, 2022),
                 'month' => $faker->monthName(),
-                'date' => $faker->date('m-d-Y'),
+                'date' => $faker->date('y-m-d'),
                 'department' => $faker->randomElement(['Payables', 'General Ledger']),
                 'account_holder' => $faker->company,
                 'status' => $faker->randomElement(['Paid', 'Unpaid']),

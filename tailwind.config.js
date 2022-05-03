@@ -10,6 +10,7 @@ module.exports = {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './app/Http/Livewire/UsersTable.php',
+        './app/Http/Livewire/MyTable.php',
         './routes/web.php',
     ],
 

@@ -17,7 +17,7 @@ class CreateGeneralLedgersTable extends Migration
             $table->id();
             $table->integer('year')->nullable();
             $table->string('month')->nullable();
-            $table->string('date')->nullable();
+            $table->date('date')->nullable();
             $table->string('department')->nullable();
             $table->string('account_holder')->nullable();
             $table->string('status')->nullable();
