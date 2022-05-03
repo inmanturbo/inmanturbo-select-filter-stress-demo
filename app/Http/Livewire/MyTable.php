@@ -59,7 +59,7 @@ class MyTable extends Component
 
     public function render()
     {
-        $query = DB::table($this->model);
+        $query = $this->model::query();
 
         if($this->state['search']) {
             $query->where($this->columns[0]['name'], 'like', '%'.$this->state['search'].'%');

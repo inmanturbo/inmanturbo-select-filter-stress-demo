@@ -56,11 +56,8 @@
     <table class="{{ $state['class'] ?? ''}}">
         <tr>
             @foreach($state['columns'] as $column)
-            @php
-                $columnData = \App\ColumnData::from($column);
-            @endphp
             <th class="{{ $column['headerClass']}} whitespace-nowrap">
-                {{ $columnData->label}}
+                {{ $column['label'] }}
             </th>
             @endforeach
 
@@ -84,9 +81,6 @@
 
         <tbody>
             @foreach($state['rows']['data'] as $rowKey => $rowData)
-            @php
-                $rowData = (array) $rowData;
-            @endphp
             <tr class="{{ $rowKey % 2 == 0 ? 'bg-gray-50' : 'bg-gray-100' }}">
                 @foreach($state['columns'] as $column)
                 <td class="{{ $column['class'] }} whitespace-nowrap">
