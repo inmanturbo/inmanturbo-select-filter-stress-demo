@@ -10,7 +10,7 @@ use Sushi\Sushi;
 class GeneralLedger extends Model
 {
     use HasFactory;
-    // use Sushi;
+    use Sushi;
 
 
     public function getRows()
@@ -21,10 +21,11 @@ class GeneralLedger extends Model
         $limit = 13000;
 
         for($i = 1; $i <= $limit; $i++) {
+            $date = $faker->dateTimeThisDecade();
             $rows[] = $row = [
-                'year' => rand(2018, 2022),
-                'month' => $faker->monthName(),
-                'date' => $faker->date('y-m-d'),
+                'year' => $date->format('Y'),
+                'month' => $date->format('M'),
+                'date' => $date->format('Y-m-d'),
                 'department' => $faker->randomElement(['Payables', 'General Ledger']),
                 'account_holder' => $faker->company,
                 'status' => $faker->randomElement(['Paid', 'Unpaid']),
@@ -48,7 +49,7 @@ class GeneralLedger extends Model
         foreach(array_keys($rows[0]) as $key) {
             touch(app()->bootstrapPath('cache/' . $key . '.php'));
             Storage::disk('bootstrap-cache')
-            ->put($key . '.php', '<?php return ' . var_export(collect($rows)->unique($key)->pluck($key,$key)->toArray(), true) . ';');
+            ->put($key . '.php', '<?php return ' . var_export(collect(collect($rows)->unique($key)->pluck($key,$key)->toArray())->sort()->toArray(), true) . ';');
         }
 
         return $rows;

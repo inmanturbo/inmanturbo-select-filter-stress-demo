@@ -25,8 +25,6 @@ class MyTable extends Component
     {
         $this->model = $model;
 
-        $this->table = $table;
-
         $this->columnData = $columns;
 
         $this->state = [
