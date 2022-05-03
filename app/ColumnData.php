@@ -27,16 +27,16 @@ class ColumnData extends Data
 
     }
 
-    public function format($callback)
+    public function formatter($callback)
     {
         $this->formatter = $callback;
 
         return $this;
     }
 
-    public function value($value)
+    public function format($value)
     {
-        return call_user_func($this->formatter, $value);
+        return isset($this->formatter) ? call_user_func($this->formatter, $value) : $value;
     }
 
 

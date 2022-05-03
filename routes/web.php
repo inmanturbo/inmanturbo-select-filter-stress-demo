@@ -136,7 +136,7 @@ Route::get('/my-table', function () {
             ->toArray(),
     ];
 
-    $model = GeneralLedger::class;
+    $model = new GeneralLedger;
 
 
 
