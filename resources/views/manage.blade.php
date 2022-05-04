@@ -1,0 +1,1 @@
+<a href="/delete/{{$row->id}}" class="text-red-500 ">Delete</a>

@@ -22,7 +22,15 @@ class ColumnData extends Data
         public string $secondaryHeaderView = '',
         public array $options = [],
         public $hasTotal = false,
+        public $defaultValue = '',
     ) {
+    }
+
+    public function defaultValue($defaultValue): self
+    {
+        $this->defaultValue = $defaultValue;
+
+        return $this;
     }
 
     public function withTotal(): self
@@ -130,18 +138,29 @@ class ColumnData extends Data
         return isset($this->footerCallback) ? call_user_func($this->footerCallback) : '';
     }
 
-    public function render($value, $row, $rows)
+    public function render($row, $rows)
     {
+
         return $this->hasView() ?
-        view($this->view, compact('row', 'rows')) :
-        $this->format($value, $row, $rows);
+        view($this->view, [
+            'row' => $row,
+            'rows' => $rows,
+            'column' => $this,
+        ]) :
+        $this->format($row, $rows);
     }
 
-    public function format($value, $row, $rows)
+    public function format($row, $rows)
     {
-        return isset($this->formatter) ?
-        call_user_func($this->formatter, $value, $row, $rows) :
-            $value;
+        if(isset($this->formatter)) {
+            return call_user_func($this->formatter, $row, $rows, $this);
+        }
+        return isset($row->{$this->name}) ? $row->{$this->name} : $this->getDefaultValue();
+    }
+
+    public function getDefaultValue()
+    {
+        return $this->defaultValue;
     }
 
     public function getHeaderClass()

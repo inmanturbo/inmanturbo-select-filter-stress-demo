@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/tw', function () {
+    return view('tw');
+});
+
 Route::get('/', function () {
 
     $columns = [
@@ -134,6 +138,13 @@ Route::get('/', function () {
             ->headerClass('text-sm text-right')
             ->footerClass('text-xs text-right text-blue-500')
             ->withTotal()
+            ->toArray(),
+        (new \App\ColumnData('', 'Manage'))
+            ->class('text-xs text-right text-blue-500')
+            ->secondaryHeaderClass('text-xs text-right text-blue-500')
+            ->headerClass('text-sm text-right')
+            ->footerClass('text-xs text-right text-blue-500')
+            ->view('manage')
             ->toArray(),
     ];
 

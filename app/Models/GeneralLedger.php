@@ -49,7 +49,7 @@ class GeneralLedger extends Model
         foreach(array_keys($rows[0]) as $key) {
             touch(app()->bootstrapPath('cache/' . $key . '.php'));
             Storage::disk('bootstrap-cache')
-            ->put($key . '.php', '<?php return ' . var_export(collect(collect($rows)->unique($key)->pluck($key,$key)->toArray())->sort()->toArray(), true) . ';');
+            ->put($key . '.php', '<?php return ' . var_export(collect(collect($rows)->unique($key)->pluck($key,$key)->take(2000)->toArray())->sort()->toArray(), true) . ';');
         }
 
         return $rows;

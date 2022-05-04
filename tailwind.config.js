@@ -11,6 +11,7 @@ module.exports = {
         './resources/views/**/*.blade.php',
         './app/Http/Livewire/UsersTable.php',
         './app/Http/Livewire/MyTable.php',
+        './app/Http/Livewire/GeneralLedgerTable.php',
         './routes/web.php',
     ],
 

@@ -54,7 +54,7 @@
         <tr>
             @foreach($columns as $column)
             <th class="{{ $column->getHeaderClass() }} whitespace-nowrap">
-                {{ $column->label }}
+                {{ $column->getLabel() }}
             </th>
             @endforeach
 
@@ -79,7 +79,7 @@
             <tr class="{{ $rowKey % 2 == 0 ? 'bg-gray-50' : 'bg-gray-100' }}">
                 @foreach($columns as $column)
                 <td class="{{ $column->getClass() }} whitespace-nowrap">
-                    {{ $column->render($rowData->{$column->getName()}, $rowData, $state['rows']) }}
+                    {!! $column->render($rowData, $state['rows']) !!}
                 </td>
                 @endforeach
             </tr>
