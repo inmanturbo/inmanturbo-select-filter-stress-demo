@@ -47,7 +47,6 @@
                     Clear All
                 </button>
                 @endif
-                @json($state['filters'])
         </div>
     </div>
 
@@ -66,7 +65,7 @@
             @foreach($columns as $column)
             <th class="{{ $column->getSecondaryHeaderClass() }} whitespace-nowrap">
                 @if($column->hasSecondaryHeaderView())
-                @include($column->getSecondaryHeaderView(), ['column' => $column->toArray(), 'options' => $column->getOptions()])
+                @include($column->getSecondaryHeaderView(), ['column' => $column])
                 @else
                     {{ $column->renderSecondaryHeader() }}
                 @endif
@@ -79,12 +78,8 @@
             @foreach($state['rows'] as $rowKey => $rowData)
             <tr class="{{ $rowKey % 2 == 0 ? 'bg-gray-50' : 'bg-gray-100' }}">
                 @foreach($columns as $column)
-                <td class="{{ $column->class }} whitespace-nowrap">
-                    @if($column->hasView())
-                    @include($column->view, ['row' => $rowData])
-                    @else
-                    {{ $rowData->{$column->getName()} }}
-                    @endif
+                <td class="{{ $column->getClass() }} whitespace-nowrap">
+                    {{ $column->render($rowData->{$column->getName()}, $rowData, $state['rows']) }}
                 </td>
                 @endforeach
             </tr>
@@ -96,7 +91,7 @@
                 @foreach($columns as $column)
                 <td class="{{ $column->getFooterClass() }} whitespace-nowrap">
                     @if($column->hasFooterView)
-                    @include($column->footerView, ['column' => $column->toArray(), 'options' => $column->getOptions()])
+                    @include($column->footerView, ['column' => $column])
                     @else
                     {{ $column->renderFooter() }}
                     @endif

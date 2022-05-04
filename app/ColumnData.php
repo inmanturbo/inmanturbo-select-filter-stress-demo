@@ -22,9 +22,7 @@ class ColumnData extends Data
         public string $secondaryHeaderView = '',
         public array $options = [],
         public $hasTotal = false,
-    )
-    {
-
+    ) {
     }
 
     public function withTotal(): self
@@ -124,7 +122,7 @@ class ColumnData extends Data
 
     /**
      * methods below will this comment block an interface
-     * 
+     *
      */
 
     public function renderFooter()
@@ -132,9 +130,18 @@ class ColumnData extends Data
         return isset($this->footerCallback) ? call_user_func($this->footerCallback) : '';
     }
 
-    public function format($value)
+    public function render($value, $row, $rows)
     {
-        return isset($this->formatter) ? call_user_func($this->formatter, $value) : $value;
+        return $this->hasView() ?
+        view($this->view, compact('row', 'rows')) :
+        $this->format($value, $row, $rows);
+    }
+
+    public function format($value, $row, $rows)
+    {
+        return isset($this->formatter) ?
+        call_user_func($this->formatter, $value, $row, $rows) :
+            $value;
     }
 
     public function getHeaderClass()
@@ -189,7 +196,7 @@ class ColumnData extends Data
 
     /**
      * methods below are checkers which return booleans
-     * 
+     *
      */
 
     public function hasSecondaryHeader(): bool
