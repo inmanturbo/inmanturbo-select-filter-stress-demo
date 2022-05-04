@@ -76,7 +76,7 @@ class MyTable extends Component
         foreach ($this->columnData as $column) {
             $column = ColumnData::from($column);
             if ($column->hasTotal()) {
-                $name = $column->name;
+                $name = $column->getName();
                 $column->secondaryHeader(function () use ($name) {
                     return number_format($this->baseQuery()->sum($name), 2);
                 });

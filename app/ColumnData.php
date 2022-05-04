@@ -21,16 +21,10 @@ class ColumnData extends Data
         public bool $hasSecondaryHeader = false,
         public string $secondaryHeaderView = '',
         public array $options = [],
-        public $formatter = null,
         public $hasTotal = false,
     )
     {
 
-    }
-
-    public function hasTotal(): bool
-    {
-        return $this->hasTotal;
     }
 
     public function withTotal(): self
@@ -67,17 +61,6 @@ class ColumnData extends Data
 
         return $this;
     }
-
-    public function renderFooter()
-    {
-        return isset($this->footerCallback) ? call_user_func($this->footerCallback) : '';
-    }
-
-    public function format($value)
-    {
-        return isset($this->formatter) ? call_user_func($this->formatter, $value) : $value;
-    }
-
 
     public function options(array $options)
     {
@@ -137,5 +120,100 @@ class ColumnData extends Data
         $this->secondaryHeaderView = $view;
 
         return $this;
+    }
+
+    /**
+     * methods below will this comment block an interface
+     * 
+     */
+
+    public function renderFooter()
+    {
+        return isset($this->footerCallback) ? call_user_func($this->footerCallback) : '';
+    }
+
+    public function format($value)
+    {
+        return isset($this->formatter) ? call_user_func($this->formatter, $value) : $value;
+    }
+
+    public function getHeaderClass()
+    {
+        return $this->headerClass;
+    }
+
+    public function getSecondaryHeaderClass()
+    {
+        return $this->secondaryHeaderClass;
+    }
+
+    public function getFooterClass()
+    {
+        return $this->footerClass;
+    }
+
+    public function getView()
+    {
+        return $this->view;
+    }
+
+    public function getFooterView()
+    {
+        return $this->footerView;
+    }
+
+    public function getSecondaryHeaderView()
+    {
+        return $this->secondaryHeaderView;
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * methods below are checkers which return booleans
+     * 
+     */
+
+    public function hasSecondaryHeader(): bool
+    {
+        return $this->hasSecondaryHeader;
+    }
+
+    public function hasView(): bool
+    {
+        return $this->hasView;
+    }
+
+    public function hasFooterView(): bool
+    {
+        return $this->hasFooterView;
+    }
+
+    public function hasSecondaryHeaderView(): bool
+    {
+        return $this->hasSecondaryHeaderView;
+    }
+
+    public function hasTotal(): bool
+    {
+        return $this->hasTotal;
     }
 }

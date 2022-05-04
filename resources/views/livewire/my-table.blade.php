@@ -54,7 +54,7 @@
     <table class="{{ $state['class'] ?? ''}}">
         <tr>
             @foreach($columns as $column)
-            <th class="{{ $column->headerClass }} whitespace-nowrap">
+            <th class="{{ $column->getHeaderClass() }} whitespace-nowrap">
                 {{ $column->label }}
             </th>
             @endforeach
@@ -64,9 +64,9 @@
         @if(in_array(needle: true,haystack: array_column(array: $state['columns'],column_key: 'hasSecondaryHeader')))
         <tr>
             @foreach($columns as $column)
-            <th class="{{ $column->secondaryHeaderClass }} whitespace-nowrap">
-                @if($column->hasSecondaryHeaderView)
-                @include($column->secondaryHeaderView, ['column' => $column->toArray(), 'options' => $column->options])
+            <th class="{{ $column->getSecondaryHeaderClass() }} whitespace-nowrap">
+                @if($column->hasSecondaryHeaderView())
+                @include($column->getSecondaryHeaderView(), ['column' => $column->toArray(), 'options' => $column->getOptions()])
                 @else
                     {{ $column->renderSecondaryHeader() }}
                 @endif
@@ -80,10 +80,10 @@
             <tr class="{{ $rowKey % 2 == 0 ? 'bg-gray-50' : 'bg-gray-100' }}">
                 @foreach($columns as $column)
                 <td class="{{ $column->class }} whitespace-nowrap">
-                    @if($column->hasView)
+                    @if($column->hasView())
                     @include($column->view, ['row' => $rowData])
                     @else
-                    {{ $rowData->{$column->name} }}
+                    {{ $rowData->{$column->getName()} }}
                     @endif
                 </td>
                 @endforeach
@@ -94,9 +94,9 @@
         <tfoot>
             <tr>
                 @foreach($columns as $column)
-                <td class="{{ $column->footerClass }} whitespace-nowrap">
+                <td class="{{ $column->getFooterClass() }} whitespace-nowrap">
                     @if($column->hasFooterView)
-                    @include($column->footerView, ['column' => $column->toArray(), 'options' => $column->options])
+                    @include($column->footerView, ['column' => $column->toArray(), 'options' => $column->getOptions()])
                     @else
                     {{ $column->renderFooter() }}
                     @endif
