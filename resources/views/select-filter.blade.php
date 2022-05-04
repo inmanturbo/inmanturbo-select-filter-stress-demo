@@ -1,8 +1,6 @@
 
     <select
-        wire:model.stop="{{ $component->getTableName() }}.filters.{{ $filter->getKey() }}"
-        wire:key="{{ $component->getTableName() }}-filter-{{ $filter->getKey() }}"
-        id="{{ $component->getTableName() }}-filter-{{ $filter->getKey() }}"
+        wire:model="{{ $component->getTableName() }}.filters.{{ $filter->getKey() }}"
         class="w-full p-0 text-sm border-gray-100 rounded-sm"
     >
         <option value=""></option>

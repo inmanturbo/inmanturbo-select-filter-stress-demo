@@ -18,9 +18,11 @@ class GeneralLedger extends Model
         $faker = \Faker\Factory::create();
         $rows = [];
 
-        $limit = 13000;
+        $rowLimit = 13000;
 
-        for($i = 1; $i <= $limit; $i++) {
+        $selectOptionLimit = 2000;
+
+        for ($i = 1; $i <= $rowLimit; $i++) {
             $date = $faker->dateTimeThisDecade();
             $rows[] = $row = [
                 'year' => $date->format('Y'),
@@ -41,15 +43,30 @@ class GeneralLedger extends Model
                 'account' => $faker->randomElement(['Account 1', 'Account 2', 'Account 3']),
                 'memo' => $faker->sentence,
             ];
-            if(!in_array(Sushi::class, class_uses_recursive(get_class($this)), true)){
-
+            if (!in_array(Sushi::class, class_uses_recursive(get_class($this)), true)) {
                 $this->create($row);
             }
         }
-        foreach(array_keys($rows[0]) as $key) {
+        foreach (array_keys($rows[0]) as $key) {
             touch(app()->bootstrapPath('cache/' . $key . '.php'));
             Storage::disk('bootstrap-cache')
-            ->put($key . '.php', '<?php return ' . var_export(collect(collect($rows)->unique($key)->pluck($key,$key)->take(2000)->toArray())->sort()->toArray(), true) . ';');
+            ->put(
+                $key . '.php',
+                '<?php return ' .
+                var_export(
+                    collect(
+                        collect($rows)
+                        ->unique($key)
+                        ->pluck($key, $key)
+                        ->take($selectOptionLimit)
+                        ->toArray()
+                    )
+                        ->sort()
+                        ->toArray(),
+                    true
+                ) .
+                        ';'
+            );
         }
 
         return $rows;
