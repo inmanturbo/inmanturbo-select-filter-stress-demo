@@ -10,7 +10,7 @@ use Sushi\Sushi;
 class GeneralLedger extends Model
 {
     use HasFactory;
-    use Sushi;
+    // use Sushi;
 
 
     public function getRows()
@@ -33,7 +33,7 @@ class GeneralLedger extends Model
                 'check_number' => $faker->randomNumber(3),
                 'payee' => $faker->company,
                 'transaction_id' => $faker->randomNumber(3),
-                'credit' => $i % 3 == 0 ? $faker->randomFloat(2, 0, 1000): null,
+                'credit' => $i % 3 == 0 ? $faker->randomElement(['100', '2000', '10', '20', '20.00', '20.10']): null,
                 'debit' => $i % 3 != 0 ? $faker->randomFloat(2, 0, 1000): null,
                 'project' => $faker->randomElement(['Project 1', 'Project 2', 'Project 3']),
                 'reference_number' => $faker->randomNumber(3),

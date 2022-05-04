@@ -12,9 +12,9 @@ class ColumnData extends Data
         public string $class = '',
         public string $headerClass = '',
         public string $secondaryHeaderClass = '',
-        public string $footerClass = '',
         public bool $hasView = false,
         public string $view = '',
+        public string $footerClass = '',
         public bool $hasFooterView = false,
         public string $footerView = '',
         public bool $hasSecondaryHeaderView = false,
@@ -22,9 +22,22 @@ class ColumnData extends Data
         public string $secondaryHeaderView = '',
         public array $options = [],
         public $formatter = null,
+        public $hasTotal = false,
     )
     {
 
+    }
+
+    public function hasTotal(): bool
+    {
+        return $this->hasTotal;
+    }
+
+    public function withTotal(): self
+    {
+        $this->hasTotal = true;
+
+        return $this;
     }
 
     public function formatter($callback)
@@ -32,6 +45,32 @@ class ColumnData extends Data
         $this->formatter = $callback;
 
         return $this;
+    }
+
+    public function secondaryHeader($callback)
+    {
+        $this->hasSecondaryHeader = true;
+        $this->secondaryHeaderCallback = $callback;
+
+        return $this;
+    }
+
+    public function renderSecondaryHeader()
+    {
+        return isset($this->secondaryHeaderCallback) ? call_user_func($this->secondaryHeaderCallback) : '';
+    }
+
+    public function footerCallback($callback)
+    {
+        $this->hasFooter = true;
+        $this->footerCallback = $callback;
+
+        return $this;
+    }
+
+    public function renderFooter()
+    {
+        return isset($this->footerCallback) ? call_user_func($this->footerCallback) : '';
     }
 
     public function format($value)

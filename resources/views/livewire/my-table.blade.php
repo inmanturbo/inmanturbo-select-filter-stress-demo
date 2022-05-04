@@ -47,6 +47,7 @@
                     Clear All
                 </button>
                 @endif
+                @json($state['filters'])
         </div>
     </div>
 
@@ -67,9 +68,7 @@
                 @if($column->hasSecondaryHeaderView)
                 @include($column->secondaryHeaderView, ['column' => $column->toArray(), 'options' => $column->options])
                 @else
-                <span>
-                    &nbsp;
-                </span>
+                    {{ $column->renderSecondaryHeader() }}
                 @endif
             </th>
             @endforeach
@@ -92,6 +91,18 @@
             @endforeach
 
         </tbody>
+        <tfoot>
+            <tr>
+                @foreach($columns as $column)
+                <td class="{{ $column->footerClass }} whitespace-nowrap">
+                    @if($column->hasFooterView)
+                    @include($column->footerView, ['column' => $column->toArray(), 'options' => $column->options])
+                    @else
+                    {{ $column->renderFooter() }}
+                    @endif
+                </td>
+                @endforeach
+            </tr>
     </table>
     {{ $state['rows']->links() }}
 </div>

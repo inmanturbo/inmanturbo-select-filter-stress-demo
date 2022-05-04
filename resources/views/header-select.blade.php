@@ -13,7 +13,7 @@
 
 {{-- {{ count($options) }} --}}
 
-<select class="w-full p-0 text-sm border-gray-100 rounded-sm" 
+<select onchange="console.log(this.value)" class="w-full p-0 text-sm border-gray-100 rounded-sm" 
 wire:model.stop="state.filters.{{$column}}" 
 >
     <option value=""></option>

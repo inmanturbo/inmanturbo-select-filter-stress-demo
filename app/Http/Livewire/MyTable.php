@@ -75,6 +75,16 @@ class MyTable extends Component
         $columns = [];
         foreach ($this->columnData as $column) {
             $column = ColumnData::from($column);
+            if ($column->hasTotal()) {
+                $name = $column->name;
+                $column->secondaryHeader(function () use ($name) {
+                    return number_format($this->baseQuery()->sum($name), 2);
+                });
+
+                $column->footerCallback(function () use ($name) {
+                    return number_format($this->state['rows']->sum($name), 2);
+                });
+            }
             $columns[] = $column;
         }
         return $columns;
@@ -84,6 +94,10 @@ class MyTable extends Component
     {
         if (count($this->state['filters']) > 0) {
             foreach ($this->state['filters'] as $key => $value) {
+                if (strlen($value) < 1) {
+                    unset($this->state['filters'][$key]);
+                    continue;
+                }
                 $query->where($key, $value);
             }
         }
@@ -107,35 +121,42 @@ class MyTable extends Component
     public function processSearch($query)
     {
         if ($this->state['search']) {
-            $query->where($this->columnData[0]['name'], 'like', '%'.$this->state['search'].'%');
-            foreach ($this->columnData as $column) {
-                if ($column['name'] != $this->columnData[0]['name']) {
-                    $query->orWhere($column['name'], 'like', '%'.$this->state['search'].'%');
+            $query->where(function ($query) {
+                $query->where($this->columnData[0]['name'], 'like', '%'.$this->state['search'].'%');
+                foreach ($this->columnData as $column) {
+                    if ($column['name'] != $this->columnData[0]['name']) {
+                        $query->orWhere($column['name'], 'like', '%'.$this->state['search'].'%');
+                    }
                 }
-            }
+            });
         }
         return $query;
     }
 
-    public function getBaseQuery()
+    public function builder()
     {
-        return once(function () {
-            return $this->model instanceof \Illuminate\Database\Eloquent\Model ?
-            $this->model->getQuery() :
-            DB::table($this->model);;
-        });
+        return $this->model instanceof \Illuminate\Database\Eloquent\Model ?
+        $this->model->getQuery() :
+        DB::table($this->model);
+    }
+
+    public function baseQuery()
+    {
+        $query = $this->builder();
+        $query = $this->processSearch($query);
+        $query = $this->processFilters($query);
+        $query = $this->processDates($query);
+        return $query;
+    }
+
+    public function executeQuery()
+    {
+        return $this->baseQuery()->paginate($this->state['perPage']);
     }
 
     public function render()
     {
-        $query = $this->getBaseQuery();
-
-        $query = $this->processSearch($query);
-        $query = $this->processFilters($query);
-        $query = $this->processDates($query);
-
-
-        $this->state['rows'] = ($paginator = $query->paginate($this->state['perPage']));
+        $this->state['rows'] = ($paginator = $this->executeQuery());
 
         $columns = $this->columns();
 
