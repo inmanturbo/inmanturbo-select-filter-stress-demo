@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/tw', function () {
+Route::get('/', function () {
     return view('tw');
 });
 
-Route::get('/', function () {
+Route::get('/my-table', function () {
 
     $columns = [
         (new \App\ColumnData('year', 'Year'))
