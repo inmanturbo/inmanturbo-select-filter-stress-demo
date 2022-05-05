@@ -34,7 +34,8 @@ class MyTable extends Component
             'filters' => [],
             'perPage' => $config['perPage'] ?? 20,
             'perPageOptions' => $config['perPageOptions'] ?? [20, 10, 100, 500, 1000],
-            'class' => $config['class'] ?? 'table-auto',
+            'class' => $config['class'] ?? 'divide-y divide-gray-200',
+            'headerClass' => $config['headerClass'] ?? 'bg-gray-50',
             'dateFrom' => $config['dateFrom'] ?? null,
             'dateTo' => $config['dateTo'] ?? null,
             'dateColumn' => $config['dateColumn'] ?? 'date',
@@ -77,13 +78,18 @@ class MyTable extends Component
             $column = ColumnData::from($column);
             if ($column->hasTotal()) {
                 $name = $column->getName();
-                $column->secondaryHeader(function () use ($name) {
+                $column->secondaryHeaderCallback(function () use ($name) {
                     return number_format($this->baseQuery()->sum($name), 2);
                 });
 
                 $column->footerCallback(function () use ($name) {
                     return number_format($this->state['rows']->sum($name), 2);
                 });
+
+                $column->callback(function ($row, $rows, $column) {
+                    return number_format($row->{$column->name}, 2);
+                });
+
             }
             $columns[] = $column;
         }

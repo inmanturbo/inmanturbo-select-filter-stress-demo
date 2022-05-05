@@ -40,34 +40,6 @@ class ColumnData extends Data
         return $this;
     }
 
-    public function formatter($callback)
-    {
-        $this->formatter = $callback;
-
-        return $this;
-    }
-
-    public function secondaryHeader($callback)
-    {
-        $this->hasSecondaryHeader = true;
-        $this->secondaryHeaderCallback = $callback;
-
-        return $this;
-    }
-
-    public function renderSecondaryHeader()
-    {
-        return isset($this->secondaryHeaderCallback) ? call_user_func($this->secondaryHeaderCallback) : '';
-    }
-
-    public function footerCallback($callback)
-    {
-        $this->hasFooter = true;
-        $this->footerCallback = $callback;
-
-        return $this;
-    }
-
     public function options(array $options)
     {
         $this->options = $options;
@@ -129,13 +101,47 @@ class ColumnData extends Data
     }
 
     /**
-     * methods below will this comment block an interface
+     * methods below this comment block
+     * will go into an interface
      *
      */
 
-    public function renderFooter()
+     /**
+      * the following methods take in callbacks and
+      * can be used to modify the data
+      * they are only usable from within the livewire component
+      * after the columnData objects have been unserialized
+      */
+
+    public function secondaryHeaderCallback($callback)
     {
-        return isset($this->footerCallback) ? call_user_func($this->footerCallback) : '';
+        $this->hasSecondaryHeader = true;
+        $this->secondaryHeaderCallback = $callback;
+
+        return $this;
+    }
+
+    public function callback($callback)
+    {
+        $this->callback = $callback;
+
+        return $this;
+    }
+
+    public function footerCallback($callback)
+    {
+        $this->hasFooter = true;
+        $this->footerCallback = $callback;
+
+        return $this;
+    }
+
+    /**
+     * renderers that will be called from within the veiw
+     */
+    public function renderSecondaryHeader()
+    {
+        return isset($this->secondaryHeaderCallback) ? call_user_func($this->secondaryHeaderCallback) : '';
     }
 
     public function render($row, $rows)
@@ -150,13 +156,23 @@ class ColumnData extends Data
         $this->format($row, $rows);
     }
 
+    public function renderFooter()
+    {
+        return isset($this->footerCallback) ? call_user_func($this->footerCallback) : '';
+    }
+
     public function format($row, $rows)
     {
-        if(isset($this->formatter)) {
-            return call_user_func($this->formatter, $row, $rows, $this);
+        if(isset($this->callback)) {
+            return call_user_func($this->callback, $row, $rows, $this);
         }
         return isset($row->{$this->name}) ? $row->{$this->name} : $this->getDefaultValue();
     }
+
+    /**
+     * The following methods are getters that
+     * will be called from within the view
+     */
 
     public function getDefaultValue()
     {

@@ -53,8 +53,10 @@
     <table class="{{ $state['class'] ?? ''}}">
         <tr>
             @foreach($columns as $column)
-            <th class="{{ $column->getHeaderClass() }} whitespace-nowrap">
-                {{ $column->getLabel() }}
+            <th class="{{ $column->getHeaderClass() }}">
+                <span>
+                    {{ $column->getLabel() }}
+                </span>
             </th>
             @endforeach
 

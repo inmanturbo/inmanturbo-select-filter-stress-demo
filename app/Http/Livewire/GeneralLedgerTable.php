@@ -239,103 +239,103 @@ class GeneralLedgerTable extends DataTableComponent
         $configs = [
             'year' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Year',
                 'options' => include(base_path('bootstrap/cache/year.php'))
             ],
             'month' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Month',
                 'options' => include(base_path('bootstrap/cache/month.php'))
             ],
             'date' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Date',
                 'options' => include(base_path('bootstrap/cache/date.php'))
             ],
             'department' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Department',
                 'options' => include(base_path('bootstrap/cache/department.php'))
             ],
             'account_holder' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Account Holder',
                 'options' => include(base_path('bootstrap/cache/account_holder.php'))
             ],
             'status' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Status',
                 'options' => include(base_path('bootstrap/cache/status.php'))
             ],
             'transaction_type' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Transaction Type',
                 'options' => include(base_path('bootstrap/cache/transaction_type.php'))
             ],
             'check_number' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Check NO.',
                 'options' => include(base_path('bootstrap/cache/check_number.php'))
             ],
             'payee' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Payee',
                 'options' => include(base_path('bootstrap/cache/payee.php'))
             ],
             'transaction_id' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Transaction Id',
                 'options' => include(base_path('bootstrap/cache/transaction_id.php'))
             ],
             'credit' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Credit',
                 'options' => include(base_path('bootstrap/cache/credit.php'))
             ],
             'debit' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Debit',
                 'options' => include(base_path('bootstrap/cache/debit.php'))
             ],
             'project' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Project',
                 'options' => include(base_path('bootstrap/cache/project.php'))
             ],
             'reference_number' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Ref NO.',
                 'options' => include(base_path('bootstrap/cache/reference_number.php'))
             ],
             'division' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Division',
                 'options' => include(base_path('bootstrap/cache/division.php'))
             ],
             'account' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Account',
                 'options' => include(base_path('bootstrap/cache/account.php'))
             ],
             'memo' => [
                 'searchable' => true,
-                'sortable' => true,
+                // 'sortable' => true,
                 'label' => 'Memo',
                 'options' => include(base_path('bootstrap/cache/memo.php'))
             ],
