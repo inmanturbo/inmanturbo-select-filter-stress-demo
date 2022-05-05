@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         if(in_array(Sushi::class, class_uses_recursive(GeneralLedger::class), true)){
 
             File::delete(File::glob(storage_path('framework/cache/*.sqlite')));
+        }else{
+            touch(storage_path('framework/cache/sushi-app-models-general-ledger.sqlite'));
         }
         $factory = (new GeneralLedger)->getRows();
     }
