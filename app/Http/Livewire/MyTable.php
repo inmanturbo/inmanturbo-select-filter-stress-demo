@@ -34,7 +34,7 @@ class MyTable extends Component
             'filters' => [],
             'perPage' => $config['perPage'] ?? 20,
             'perPageOptions' => $config['perPageOptions'] ?? [20, 10, 100, 500, 1000],
-            'class' => $config['class'] ?? 'divide-y divide-gray-200',
+            'class' => $config['class'] ?? 'table-auto',
             'headerClass' => $config['headerClass'] ?? 'bg-gray-50',
             'dateFrom' => $config['dateFrom'] ?? null,
             'dateTo' => $config['dateTo'] ?? null,
