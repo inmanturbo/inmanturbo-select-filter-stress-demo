@@ -16,10 +16,10 @@ php artisan key:generate
 yarn && yarn run dev
 ```
 
-No migrations or database configurations are needed, simply run
+run
 
 ```bash
-php artisan db:seed
+php artisan migrate:fresh --seed
 ```
 
 ## Usage
