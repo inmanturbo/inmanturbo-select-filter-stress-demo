@@ -54,7 +54,7 @@ class GeneralLedgerTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
-        $this->setFiltersVisibilityStatus(false);
+        // $this->setFiltersVisibilityStatus(false);
         $this->setPerPageAccepted([10, 25, 50, 100, 1000]);
         // Takes a callback that gives you the current column.
         $this->setThAttributes(function (Column $column) {

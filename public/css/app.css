@@ -1083,7 +1083,7 @@ select {
 .gap-6 {
 	gap: 1.5rem;
 }
-.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+/* .space-y-4 > :not([hidden]) ~ :not([hidden]) {
 	--tw-space-y-reverse: 0;
 	margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(1rem * var(--tw-space-y-reverse));
@@ -1102,8 +1102,8 @@ select {
 	--tw-space-y-reverse: 0;
 	margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
-}
-.divide-y > :not([hidden]) ~ :not([hidden]) {
+} */
+/* .divide-y > :not([hidden]) ~ :not([hidden]) {
 	--tw-divide-y-reverse: 0;
 	border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
 	border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
@@ -1115,7 +1115,7 @@ select {
 .divide-gray-100 > :not([hidden]) ~ :not([hidden]) {
 	--tw-divide-opacity: 1;
 	border-color: rgba(243, 244, 246, var(--tw-divide-opacity));
-}
+} */
 .overflow-auto {
 	overflow: auto;
 }
@@ -1692,13 +1692,13 @@ select {
 .group:hover .group-hover\:opacity-100 {
 	opacity: 1;
 }
-.dark .dark\:divide-none > :not([hidden]) ~ :not([hidden]) {
+/* .dark .dark\:divide-none > :not([hidden]) ~ :not([hidden]) {
 	border-style: none;
 }
 .dark .dark\:divide-gray-600 > :not([hidden]) ~ :not([hidden]) {
 	--tw-divide-opacity: 1;
 	border-color: rgba(75, 85, 99, var(--tw-divide-opacity));
-}
+} */
 .dark .dark\:border-gray-700 {
 	--tw-border-opacity: 1;
 	border-color: rgba(55, 65, 81, var(--tw-border-opacity));
@@ -1836,11 +1836,11 @@ select {
 		justify-content: space-between;
 	}
 
-	.sm\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
+	/* .sm\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
 		--tw-space-y-reverse: 0;
 		margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
 		margin-bottom: calc(0px * var(--tw-space-y-reverse));
-	}
+	} */
 
 	.sm\:rounded-lg {
 		border-radius: 0.5rem;
@@ -1934,7 +1934,7 @@ select {
 		justify-content: space-between;
 	}
 
-	.md\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
+	/* .md\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
 		--tw-space-y-reverse: 0;
 		margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
 		margin-bottom: calc(0px * var(--tw-space-y-reverse));
@@ -1944,7 +1944,7 @@ select {
 		--tw-space-x-reverse: 0;
 		margin-right: calc(0.5rem * var(--tw-space-x-reverse));
 		margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-	}
+	} */
 
 	.md\:border-t-0 {
 		border-top-width: 0px;
