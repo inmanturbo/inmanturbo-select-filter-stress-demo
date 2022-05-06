@@ -20,7 +20,7 @@ class GeneralLedger extends Model
 
         $rowLimit = 13000;
 
-        $selectOptionLimit = 2000;
+        $selectOptionLimit = 13000;
 
         for ($i = 1; $i <= $rowLimit; $i++) {
             $date = $faker->dateTimeThisDecade();
