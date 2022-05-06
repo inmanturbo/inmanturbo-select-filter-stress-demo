@@ -12,7 +12,7 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/telescope": "^4.9",
         "laravel/tinker": "^2.7",
-        "rappasoft/laravel-livewire-tables": "dev-develop",
+        "rappasoft/laravel-livewire-tables": "dev-inmanturbo-develop",
         "spatie/laravel-data": "^1.4",
         "spatie/once": "^3.1"
     },
@@ -66,5 +66,15 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/home/inman/Documents/laravel-livewire-tables",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
 }

@@ -56,6 +56,17 @@ class GeneralLedgerTable extends DataTableComponent
         $this->setPrimaryKey('id');
         // $this->setFiltersVisibilityStatus(false);
         $this->setPerPageAccepted([10, 25, 50, 100, 1000]);
+
+        $this->setTableAttributes([
+            'class' => 'min-w-full',
+            'default' => false,
+
+          ]);
+
+          $this->setTbodyAttributes([
+            'class' => '',
+            'default' => false,
+          ]);
         // Takes a callback that gives you the current column.
         $this->setThAttributes(function (Column $column) {
             if ($column->isField('debit') || $column->isField('credit')) {
@@ -178,7 +189,7 @@ class GeneralLedgerTable extends DataTableComponent
                     if ($value) {
                         $builder->where($column, $value);
                     }
-                });
+                })->hiddenFromMenus();
         }
         $filters['date_from'] =  DateFilter::make('Verified From')
         ->filter(function (Builder $builder, string $value) {

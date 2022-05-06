@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8995c192fb93b7512bcc1c8cd2b43b2b",
+    "content-hash": "36b7b0d710fa5a04cb70be65a09628b5",
     "packages": [
         {
             "name": "brick/math",
@@ -2731,16 +2731,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.11.3",
+            "version": "v0.11.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "6833626ee48ef9bcc8aca8f9f166760441c12573"
+                "reference": "05c544b339b112226ad14803e1e5b09a61957454"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/6833626ee48ef9bcc8aca8f9f166760441c12573",
-                "reference": "6833626ee48ef9bcc8aca8f9f166760441c12573",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/05c544b339b112226ad14803e1e5b09a61957454",
+                "reference": "05c544b339b112226ad14803e1e5b09a61957454",
                 "shasum": ""
             },
             "require": {
@@ -2801,9 +2801,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.11.3"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.11.4"
             },
-            "time": "2022-05-05T02:19:43+00:00"
+            "time": "2022-05-06T12:49:14+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -3024,11 +3024,11 @@
         },
         {
             "name": "rappasoft/laravel-livewire-tables",
-            "version": "dev-develop",
+            "version": "dev-inmanturbo-develop",
             "dist": {
                 "type": "path",
                 "url": "/home/inman/Documents/laravel-livewire-tables",
-                "reference": "3c23555185ee182600abc581b3deb75ec22f95bf"
+                "reference": "898ce70bd5a9eddefa76603117eb047be1f9cef2"
             },
             "require": {
                 "illuminate/contracts": "^8.0|^9.0",
@@ -6602,16 +6602,16 @@
         },
         {
             "name": "kitloong/laravel-migrations-generator",
-            "version": "v5.2.0",
+            "version": "v5.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kitloong/laravel-migrations-generator.git",
-                "reference": "434237eeab043c13ab7657b3fd704b43cf5bf39e"
+                "reference": "52e415d6f6d5f0048f9a29ab4b6d8871b6e5a16c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kitloong/laravel-migrations-generator/zipball/434237eeab043c13ab7657b3fd704b43cf5bf39e",
-                "reference": "434237eeab043c13ab7657b3fd704b43cf5bf39e",
+                "url": "https://api.github.com/repos/kitloong/laravel-migrations-generator/zipball/52e415d6f6d5f0048f9a29ab4b6d8871b6e5a16c",
+                "reference": "52e415d6f6d5f0048f9a29ab4b6d8871b6e5a16c",
                 "shasum": ""
             },
             "require": {
@@ -6662,7 +6662,7 @@
             ],
             "support": {
                 "issues": "https://github.com/kitloong/laravel-migrations-generator/issues",
-                "source": "https://github.com/kitloong/laravel-migrations-generator/tree/v5.2.0"
+                "source": "https://github.com/kitloong/laravel-migrations-generator/tree/v5.2.1"
             },
             "funding": [
                 {
@@ -6670,7 +6670,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-02-09T03:30:55+00:00"
+            "time": "2022-05-06T14:35:41+00:00"
         },
         {
             "name": "laravel/sail",
