@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "36b7b0d710fa5a04cb70be65a09628b5",
+    "content-hash": "555169281db2a8e03aa113997240b742",
     "packages": [
         {
             "name": "brick/math",
@@ -3025,10 +3025,16 @@
         {
             "name": "rappasoft/laravel-livewire-tables",
             "version": "dev-inmanturbo-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rappasoft/laravel-livewire-tables.git",
+                "reference": "18e9f190ddec6b5963e8c222a1ad991db8fea656"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/inman/Documents/laravel-livewire-tables",
-                "reference": "898ce70bd5a9eddefa76603117eb047be1f9cef2"
+                "type": "zip",
+                "url": "https://api.github.com/repos/rappasoft/laravel-livewire-tables/zipball/18e9f190ddec6b5963e8c222a1ad991db8fea656",
+                "reference": "18e9f190ddec6b5963e8c222a1ad991db8fea656",
+                "shasum": ""
             },
             "require": {
                 "illuminate/contracts": "^8.0|^9.0",
@@ -3055,22 +3061,7 @@
                     "Rappasoft\\LaravelLivewireTables\\": "src"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Rappasoft\\LaravelLivewireTables\\Tests\\": "tests"
-                }
-            },
-            "scripts": {
-                "psalm": [
-                    "vendor/bin/psalm"
-                ],
-                "test": [
-                    "vendor/bin/phpunit --colors=always"
-                ],
-                "test-coverage": [
-                    "vendor/bin/phpunit --coverage-html coverage"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3090,10 +3081,17 @@
                 "rappasoft",
                 "tables"
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": false
-            }
+            "support": {
+                "issues": "https://github.com/rappasoft/laravel-livewire-tables/issues",
+                "source": "https://github.com/rappasoft/laravel-livewire-tables/tree/inmanturbo-develop"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/rappasoft",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-05-07T04:25:34+00:00"
         },
         {
             "name": "spatie/laravel-data",
@@ -9030,5 +9028,5 @@
         "php": "^8.0.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

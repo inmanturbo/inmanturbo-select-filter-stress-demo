@@ -104,7 +104,7 @@ class GeneralLedgerTable extends DataTableComponent
                     'class' => 'bg-gray-50',
                 ];
             }
-      
+
             return ['default' => false];
         });
 

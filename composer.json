@@ -66,15 +66,5 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-
-    "repositories": [
-        {
-            "type": "path",
-            "url": "/home/inman/Documents/laravel-livewire-tables",
-            "options": {
-                "symlink": true
-            }
-        }
-    ]
+    "prefer-stable": true
 }
