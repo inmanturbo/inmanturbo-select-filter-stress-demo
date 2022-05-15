@@ -23,7 +23,15 @@ class ColumnData extends Data
         public array $options = [],
         public $hasTotal = false,
         public $defaultValue = '',
+        public $sortable = false,
     ) {
+    }
+
+    public function sortable(): self
+    {
+        $this->sortable = true;
+
+        return $this;
     }
 
     public function defaultValue($defaultValue): self
@@ -173,6 +181,11 @@ class ColumnData extends Data
      * The following methods are getters that
      * will be called from within the view
      */
+
+    public function isSortable()
+    {
+        return $this->sortable;
+    }
 
     public function getDefaultValue()
     {

@@ -1033,6 +1033,12 @@ select {
 .cursor-default {
 	cursor: default;
 }
+.select-none {
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+}
 .select-all {
 	-webkit-user-select: all;
 	   -moz-user-select: all;
@@ -1139,11 +1145,19 @@ select {
 .border-b {
 	border-bottom-width: 1px;
 }
+.border-t {
+	border-top-width: 1px;
+}
 .border-l-0 {
 	border-left-width: 0px;
 }
-.border-t {
-	border-top-width: 1px;
+.border-red-500 {
+	--tw-border-opacity: 1;
+	border-color: rgba(239, 68, 68, var(--tw-border-opacity));
+}
+.border-gray-500 {
+	--tw-border-opacity: 1;
+	border-color: rgba(107, 114, 128, var(--tw-border-opacity));
 }
 .border-gray-200 {
 	--tw-border-opacity: 1;
@@ -1164,6 +1178,10 @@ select {
 	--tw-bg-opacity: 1;
 	background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
 }
+.bg-gray-100 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
+}
 .bg-white {
 	--tw-bg-opacity: 1;
 	background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
@@ -1176,21 +1194,17 @@ select {
 	--tw-bg-opacity: 1;
 	background-color: rgba(224, 231, 255, var(--tw-bg-opacity));
 }
-.bg-gray-100 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
-}
 .bg-indigo-50 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(238, 242, 255, var(--tw-bg-opacity));
 }
-.bg-gray-700 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(55, 65, 81, var(--tw-bg-opacity));
-}
 .bg-gray-800 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(31, 41, 55, var(--tw-bg-opacity));
+}
+.bg-gray-700 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(55, 65, 81, var(--tw-bg-opacity));
 }
 .p-0\.5 {
 	padding: 0.125rem;
@@ -1329,6 +1343,9 @@ select {
 }
 .leading-7 {
 	line-height: 1.75rem;
+}
+.tracking-tighter {
+	letter-spacing: -0.05em;
 }
 .tracking-wider {
 	letter-spacing: 0.05em;
@@ -1517,13 +1534,13 @@ select {
 	--tw-bg-opacity: 1;
 	background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
 }
-.hover\:bg-gray-200:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
-}
 .hover\:bg-gray-700:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(55, 65, 81, var(--tw-bg-opacity));
+}
+.hover\:bg-gray-200:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
 }
 .hover\:text-indigo-500:hover {
 	--tw-text-opacity: 1;
@@ -1789,6 +1806,10 @@ select {
 
 	.sm\:h-20 {
 		height: 5rem;
+	}
+
+	.sm\:flex-1 {
+		flex: 1 1 0%;
 	}
 
 	.sm\:grid-cols-2 {

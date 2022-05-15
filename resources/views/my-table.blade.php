@@ -26,7 +26,7 @@
     </nav>
 
     </div class="mt-6">
-        @livewire('my-table', ['columns' => $columns, 'model' => $model, 'config' => ['dateColumn' => 'date']])
+        @livewire('my-table', ['columns' => $columns, 'rowData' => $row, 'model' => $model, 'config' => ['dateColumn' => 'date']])
     </div>
 
     <livewire:scripts />

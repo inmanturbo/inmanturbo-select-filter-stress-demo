@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\ColumnData;
+use App\RowData;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -11,9 +12,15 @@ class MyTable extends Component
 {
     use WithPagination;
 
-    public $state = [];
+    public $state;
+
+    public $config;
+
+    public $data = [];
 
     public $model;
+
+    public $rowData;
 
     public $columnData;
 
@@ -21,31 +28,78 @@ class MyTable extends Component
         'setFilter' => 'setFilter',
     ];
 
-    public function mount($columns, $model, $config = [])
+    /**
+     * Set the custom query string array for this specific table
+     *
+     * @return array|\null[][]
+     */
+    public function queryString(): array
     {
+        if ($this->queryStringIsEnabled()) {
+            return [
+                'state' => ['except' => null],
+            ];
+        }
+
+        return [];
+    }
+
+    public function queryStringIsEnabled(): bool
+    {
+        return true;
+    }
+
+    public function mount($columns, $model, $rowData, $options = [])
+    {
+        $defaultState = [
+            'search' => '',
+            'filters' => [],
+            'perPage' => 20,
+            'dateFrom' => null,
+            'dateTo' => null,
+            'sort' => [
+                'column' => 'id',
+                'direction' => 'desc',
+            ],
+        ];
+
+        $defaultConfig = [
+            'columns' => [],
+            'perPageOptions' => [20, 10, 100, 500, 1000],
+            'class' => 'table-auto',
+            'headerClass' => 'bg-gray-50',
+            'dateColumn' => null,
+        ];
+
+        $this->rowData = $rowData;
+
         $this->model = $model;
 
         $this->columnData = $columns;
 
-        $this->state = [
-            'search' => null,
-            'columns' => $columns,
-            'rows' => [],
-            'filters' => [],
-            'perPage' => $config['perPage'] ?? 20,
-            'perPageOptions' => $config['perPageOptions'] ?? [20, 10, 100, 500, 1000],
-            'class' => $config['class'] ?? 'table-auto',
-            'headerClass' => $config['headerClass'] ?? 'bg-gray-50',
-            'dateFrom' => $config['dateFrom'] ?? null,
-            'dateTo' => $config['dateTo'] ?? null,
-            'dateColumn' => $config['dateColumn'] ?? 'date',
-        ];
+        $this->state = array_merge($defaultState, $this->state, $options['state'] ?? []);
+
+        $this->config = array_merge($defaultConfig, $this->config, $options['config'] ?? []);
+    }
+
+    public function sortBy($column)
+    {
+        if (isset($this->state['sort']['column']) && $this->state['sort']['column'] === $column) {
+            $this->state['sort']['direction'] = $this->state['sort']['direction'] === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->state['sort']['column'] = $column;
+            $this->state['sort']['direction'] = 'asc';
+        }
     }
 
     public function clearAll()
     {
         $this->state['search'] = null;
         $this->state['filters'] = [];
+        $this->state['sort'] = [
+            'column' => 'id',
+            'direction' => 'asc',
+        ];
         $this->clearDates();
     }
 
@@ -63,7 +117,6 @@ class MyTable extends Component
         } elseif (isset($this->state['filters'][$filter])) {
             unset($this->state['filters'][$filter]);
         }
-        $this->render();
     }
 
     public function updatedState()
@@ -83,22 +136,27 @@ class MyTable extends Component
                 });
 
                 $column->footerCallback(function () use ($name) {
-                    return number_format($this->state['rows']->sum($name), 2);
+                    return number_format($this->data['rows']->sum($name), 2);
                 });
 
                 $column->callback(function ($row, $rows, $column) {
                     return number_format($row->{$column->name}, 2);
                 });
-
             }
+            $column->sortable();
             $columns[] = $column;
         }
         return $columns;
     }
 
+    public function row()
+    {
+        return RowData::from($this->rowData);
+    }
+
     public function processFilters($query)
     {
-        if (count($this->state['filters']) > 0) {
+        if (isset($this->state['filters']) && count($this->state['filters']) > 0) {
             foreach ($this->state['filters'] as $key => $value) {
                 if (strlen($value) < 1) {
                     unset($this->state['filters'][$key]);
@@ -112,13 +170,13 @@ class MyTable extends Component
 
     public function processDates($query)
     {
-        if ($this->state['dateColumn']) {
+        if ($this->config['dateColumn']) {
             if ($this->state['dateFrom'] && $this->state['dateTo']) {
-                $query->whereBetween($this->state['dateColumn'], [$this->state['dateFrom'], $this->state['dateTo']]);
+                $query->whereBetween($this->config['dateColumn'], [$this->state['dateFrom'], $this->state['dateTo']]);
             } elseif ($this->state['dateFrom']) {
-                $query->where($this->state['dateColumn'], '>=', $this->state['dateFrom']);
+                $query->where($this->config['dateColumn'], '>=', $this->state['dateFrom']);
             } elseif ($this->state['dateTo']) {
-                $query->where($this->state['dateColumn'], '<=', $this->state['dateTo']);
+                $query->where($this->config['dateColumn'], '<=', $this->state['dateTo']);
             }
         }
         return $query;
@@ -126,7 +184,7 @@ class MyTable extends Component
 
     public function processSearch($query)
     {
-        if ($this->state['search']) {
+        if (isset($this->state['search']) && strlen($this->state['search']) > 0) {
             $query->where(function ($query) {
                 $query->where($this->columnData[0]['name'], 'like', '%'.$this->state['search'].'%');
                 foreach ($this->columnData as $column) {
@@ -135,6 +193,14 @@ class MyTable extends Component
                     }
                 }
             });
+        }
+        return $query;
+    }
+
+    public function processSort($query)
+    {
+        if (isset($this->state['sort']['column']) && isset($this->state['sort']['direction'])) {
+            $query->orderBy($this->state['sort']['column'], $this->state['sort']['direction']);
         }
         return $query;
     }
@@ -152,6 +218,7 @@ class MyTable extends Component
         $query = $this->processSearch($query);
         $query = $this->processFilters($query);
         $query = $this->processDates($query);
+        $query = $this->processSort($query);
         return $query;
     }
 
@@ -162,10 +229,12 @@ class MyTable extends Component
 
     public function render()
     {
-        $this->state['rows'] = ($paginator = $this->executeQuery());
+        $this->data['rows'] = ($paginator = $this->executeQuery());
 
         $columns = $this->columns();
 
-        return view('livewire.my-table', compact('columns'));
+        $row = $this->row();
+
+        return view('livewire.my-table', compact('columns', 'row'));
     }
 }

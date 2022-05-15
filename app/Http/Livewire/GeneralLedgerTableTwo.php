@@ -13,7 +13,7 @@ use Rappasoft\LaravelLivewireTables\Views\Filters\DateFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Sushi\Sushi;
 
-class GeneralLedgerTable extends DataTableComponent
+class GeneralLedgerTableTwo extends DataTableComponent
 {
     protected $model = GeneralLedger::class;
 

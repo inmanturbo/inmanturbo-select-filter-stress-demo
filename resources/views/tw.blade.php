@@ -26,7 +26,8 @@
     </div>
 
     <div>
-       <livewire:general-ledger-table />
+        <livewire:general-ledger-table />
+        <livewire:general-ledger-table-two />
     </div>
 
     <livewire:scripts />
