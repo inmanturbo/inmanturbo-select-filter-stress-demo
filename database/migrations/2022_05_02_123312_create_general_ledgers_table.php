@@ -31,7 +31,7 @@ class CreateGeneralLedgersTable extends Migration
             $table->integer('reference_number')->nullable();
             $table->string('division')->nullable();
             $table->string('account')->nullable();
-            $table->string('memo')->nullable();
+            $table->text('memo')->nullable();
             $table->timestamps();
         });
     }

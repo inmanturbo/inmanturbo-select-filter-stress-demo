@@ -41,7 +41,7 @@ class GeneralLedger extends Model
                 'reference_number' => $faker->randomNumber(3),
                 'division' => $faker->randomElement(['Division 1', 'Division 2', 'Division 3']),
                 'account' => $faker->randomElement(['Account 1', 'Account 2', 'Account 3']),
-                'memo' => $faker->sentence,
+                'memo' => $faker->paragraph(),
             ];
             if (!in_array(Sushi::class, class_uses_recursive(get_class($this)), true)) {
                 $this->create($row);
