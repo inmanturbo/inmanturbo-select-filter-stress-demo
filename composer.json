@@ -12,10 +12,16 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/telescope": "^4.9",
         "laravel/tinker": "^2.7",
-        "rappasoft/laravel-livewire-tables": "column-select-dev",
+        "rappasoft/laravel-livewire-tables": "select-deselect-all-columns-dev",
         "spatie/laravel-data": "^1.4",
         "spatie/once": "^3.1"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/inmanturbo/laravel-livewire-tables"
+        }
+    ],
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",
         "fakerphp/faker": "^1.9.1",

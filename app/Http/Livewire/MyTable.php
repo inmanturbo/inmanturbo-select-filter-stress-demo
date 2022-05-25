@@ -38,6 +38,7 @@ class MyTable extends Component
         if ($this->queryStringIsEnabled()) {
             return [
                 'state' => ['except' => null],
+                'columns' => ['except' => null],
             ];
         }
 
@@ -77,7 +78,7 @@ class MyTable extends Component
 
         $this->columnData = $columns;
 
-        $this->state = array_merge($defaultState, $this->state, $options['state'] ?? []);
+        $this->state = array_merge($defaultState, $this->state ?? [], $options['state'] ?? []);
 
         $this->config = array_merge($defaultConfig, $this->config, $options['config'] ?? []);
     }

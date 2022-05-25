@@ -24,7 +24,15 @@ class ColumnData extends Data
         public $hasTotal = false,
         public $defaultValue = '',
         public $sortable = false,
+        public $searchable = false,
     ) {
+    }
+
+    public function searchable(): self
+    {
+        $this->searchable = true;
+
+        return $this;
     }
 
     public function sortable(): self
@@ -114,12 +122,12 @@ class ColumnData extends Data
      *
      */
 
-     /**
-      * the following methods take in callbacks and
-      * can be used to modify the data
-      * they are only usable from within the livewire component
-      * after the columnData objects have been unserialized
-      */
+    /**
+     * the following methods take in callbacks and
+     * can be used to modify the data
+     * they are only usable from within the livewire component
+     * after the columnData objects have been unserialized
+     */
 
     public function secondaryHeaderCallback($callback)
     {
@@ -154,7 +162,6 @@ class ColumnData extends Data
 
     public function render($row, $rows)
     {
-
         return $this->hasView() ?
         view($this->view, [
             'row' => $row,
@@ -171,7 +178,7 @@ class ColumnData extends Data
 
     public function format($row, $rows)
     {
-        if(isset($this->callback)) {
+        if (isset($this->callback)) {
             return call_user_func($this->callback, $row, $rows, $this);
         }
         return isset($row->{$this->name}) ? $row->{$this->name} : $this->getDefaultValue();
@@ -182,7 +189,12 @@ class ColumnData extends Data
      * will be called from within the view
      */
 
-    public function isSortable()
+    public function isSearchable() : bool
+    {
+        return $this->searchable;
+    }
+
+    public function isSortable() : bool
     {
         return $this->sortable;
     }
