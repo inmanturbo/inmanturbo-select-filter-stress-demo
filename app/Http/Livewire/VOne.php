@@ -9,6 +9,12 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\GeneralLedger;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Rappasoft\LaravelLivewireTables\Views\Filters\DateFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
 class VOne extends DataTableComponent
@@ -22,6 +28,9 @@ class VOne extends DataTableComponent
     {
         $config = DatatableConfig::from($this->configMeta);
         $this->setPrimaryKey('id')
+            ->setPerPage($config->getPerPage())
+            ->setPerPageAccepted($config->getPerPageOptions())
+            ->setConfigurableAreas($config->getConfigurableAreas())
             ->setTrAttributes(function ($row, $index) use ($config) {
                 return [
                     'class' => $config->getTrClass($index),
@@ -89,7 +98,30 @@ class VOne extends DataTableComponent
 
     public function filters(): array
     {
-        return $this->secondaryHeaderSelectFilters();
+        return array_merge($this->secondaryHeaderSelectFilters(), $this->dateFilters());
+    }
+
+    protected function dateFilters(): array
+    {
+        $dateFilters = [];
+        $config = DatatableConfig::from($this->configMeta);
+        if($config->hasDateFilters()){
+       
+            $dateFilters['date_from'] = DateFilter::make('Date From')
+                ->filter(function (Builder $builder, string $value) use ($config) {
+                    if ($value) {
+                        $builder->where($config->getDateColumn(), '>=', $value);
+                    }
+                });
+            $dateFilters['date_to'] = DateFilter::make('Date To')
+                ->filter(function (Builder $builder, string $value) use ($config) {
+                    if ($value) {
+                        $builder->where($config->getDateColumn(), '<=', $value);
+                    }
+                });
+        }
+
+        return $dateFilters;
     }
 
     protected function secondaryHeaderSelectFilters(){
@@ -150,5 +182,166 @@ class VOne extends DataTableComponent
             $columns[] = $column;
         }
         return $columns;
+    }
+
+    public function exportPage()
+    {
+        $selected = $this->selectedColumns;
+
+        $columns = collect($this->columns())->filter(function ($column) use ($selected) {
+            return $column->hasField() && in_array($column->getSlug(), $selected);
+        });
+
+        $fields = $columns->map(function ($column) {
+            return $column->getField();
+        })->toArray();
+
+        $headings = $columns->map(function ($column) {
+            return $column->getTitle();
+        })->toArray();
+
+
+
+        $spreadSheet = new class($this->baseQuery()->offset($this->getPerPage() * ($this->page - 1))->limit($this->getPerPage())->get(), $fields, $headings) implements FromCollection, WithMapping, WithHeadings {
+            use Exportable;
+        
+            public $collection;
+
+            public $columns;
+
+            public $headings;
+        
+            /**
+             * UserExport constructor.
+             *
+             * @param  Builder  $builder
+             */
+            public function __construct($collection, $columns, $headings)
+            {
+                $this->collection = $collection;
+                $this->columns = $columns;
+                $this->headings = $headings;
+            }
+
+            public function collection()
+            {
+                return $this->collection;
+            }
+        
+            /**
+             * @return string[]
+             */
+            public function headings(): array
+            {
+                return $this->headings;
+            }
+        
+            /**
+             * @param  mixed  $row
+             *
+             * @return array
+             */
+            public function map($row): array
+            {
+                $arr = [];
+                foreach ($this->columns as $column) {
+                    if ($row->{$column} instanceof Carbon) {
+                        $arr[] = $row->{$column}->format('m/d/Y');
+                    } else {
+                        $arr[] = $row->{$column};
+                    }
+                }
+
+                return $arr;
+            }
+        };
+
+        return $spreadSheet->download('general-ledger.csv');
+    }
+
+    public function exportAll()
+    {
+        $selected = $this->selectedColumns;
+
+        $columns = collect($this->columns())->filter(function ($column) use ($selected) {
+            return $column->hasField() && in_array($column->getSlug(), $selected);
+        });
+
+        $fields = $columns->map(function ($column) {
+            return $column->getField();
+        })->toArray();
+
+        $headings = $columns->map(function ($column) {
+            return $column->getTitle();
+        })->toArray();
+
+        $query = $this->baseQuery()->offset(-1)->limit(-1);
+
+
+
+        $spreadSheet = new class($query, $fields, $headings) implements FromQuery, WithMapping, WithHeadings {
+            use Exportable;
+        
+            public $builder;
+
+            public $columns;
+
+            public $headings;
+        
+            /**
+             * UserExport constructor.
+             *
+             * @param  Builder  $builder
+             */
+            public function __construct(Builder $builder, $columns, $headings)
+            {
+                $this->builder = $builder;
+                $this->columns = $columns;
+                $this->headings = $headings;
+            }
+
+            public function query()
+            {
+                return $this->builder;
+            }
+        
+            /**
+             * @return string[]
+             */
+            public function headings(): array
+            {
+                return $this->headings;
+            }
+        
+            /**
+             * @param  mixed  $row
+             *
+             * @return array
+             */
+            public function map($row): array
+            {
+                $arr = [];
+                foreach ($this->columns as $column) {
+                    if ($row->{$column} instanceof Carbon) {
+                        $arr[] = $row->{$column}->format('m/d/Y');
+                    } else {
+                        $arr[] = $row->{$column};
+                    }
+                }
+
+                return $arr;
+            }
+        };
+
+        return $spreadSheet->download('general-ledger.csv');
+    }
+
+    public function resetTable()
+    {
+        $this->selectAllColumns();
+        $this->clearSearch();
+        $this->emit('clearFilters');
+        $this->clearSorts();
+        $this->resetPage();
     }
 }

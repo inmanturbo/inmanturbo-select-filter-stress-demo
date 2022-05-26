@@ -11,7 +11,62 @@ class DatatableConfig extends Data
         public string $tBodyClass = '',
         public string $evenTrClass = '',
         public string $oddTrClass = '',
+        public array $configurableAreas = [],
+        public string $dateColumn = '',
+        public bool $hasDateFilters = false,
+        public int $perPage = 25,
+        public array $perPageOptions = [25, 50, 100, 250, 500],
     ) {
+    }
+
+    public function perPage(int $perPage): self
+    {
+        $this->perPage = $perPage;
+
+        return $this;
+    }
+
+    public function perPageOptions(array $perPageOptions): self
+    {
+        $this->perPageOptions = $perPageOptions;
+
+        return $this;
+    }
+
+    public function withDateFilters($dateColumn): self
+    {
+        $this->dateColumn = $dateColumn;
+        $this->hasDateFilters = true;
+
+        return $this;
+    }
+
+    public function toolbarLeftStart($view): self
+    {
+        $this->configurableAreas['toolbar-left-start'] = $view;
+
+        return $this;
+    }
+
+    public function toolbarLeftEnd($view): self
+    {
+        $this->configurableAreas['toolbar-left-end'] = $view;
+
+        return $this;
+    }
+
+    public function toolbarRightStart($view): self
+    {
+        $this->configurableAreas['toolbar-right-start'] = $view;
+
+        return $this;
+    }
+
+    public function toolbarRightEnd($view): self
+    {
+        $this->configurableAreas['toolbar-right-end'] = $view;
+
+        return $this;
     }
 
     public function evenClass($evenClass): self
@@ -55,5 +110,30 @@ class DatatableConfig extends Data
     public function getTrClass($index)
     {
         return $index % 2 === 0 ? $this->evenTrClass : $this->oddTrClass;
+    }
+
+    public function getConfigurableAreas(): array
+    {
+        return $this->configurableAreas;
+    }
+
+    public function getDateColumn(): string
+    {
+        return $this->dateColumn;
+    }
+
+    public function hasDateFilters(): bool
+    {
+        return $this->hasDateFilters;
+    }
+
+    public function getPerPage(): int
+    {
+        return $this->perPage;
+    }
+
+    public function getPerPageOptions(): array
+    {
+        return $this->perPageOptions;
     }
 } 

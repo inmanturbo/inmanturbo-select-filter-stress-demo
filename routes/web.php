@@ -177,13 +177,6 @@ Route::get('/v1', function () {
             ->sortable()
             ->searchable()
             ->toArray(),
-        // (new \App\ColumnData('', 'Manage'))
-        //     ->class('whitespace-nowrap text-xs text-right text-blue-500')
-        //     ->secondaryHeaderClass('whitespace-nowrap text-xs text-right text-blue-500')
-        //     ->headerClass('whitespace-nowrap bg-gray-50 text-sm text-right')
-        //     ->footerClass('whitespace-nowrap text-xs text-right text-blue-500')
-        //     ->view('manage')
-        //     ->toArray(),
     ];
 
     $model = new GeneralLedger;
@@ -194,6 +187,8 @@ Route::get('/v1', function () {
         ->toArray();
 
     $config = (new \App\DatatableConfig)
+        ->withDateFilters('date')
+        ->toolbarLeftEnd('livewire-tables.table-actions')
         ->evenClass('bg-gray-100 border-gray-500 border-b border-t')
         ->oddClass('bg-white border-gray-500 border-b border-t')
         ->tableClass('w-full')
