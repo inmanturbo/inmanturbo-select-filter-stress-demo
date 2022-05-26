@@ -25,8 +25,17 @@ class ColumnData extends Data
         public $defaultValue = '',
         public $sortable = false,
         public $searchable = false,
+        public $hasSecondaryHeaderSelect = false,
     ) {
     }
+
+    public function secondaryHeaderSelect($options)
+    {
+        $this->hasSecondaryHeaderSelect = true;
+        $this->options = $options;
+        return $this;
+    }
+    
 
     public function searchable(): self
     {
@@ -282,5 +291,10 @@ class ColumnData extends Data
     public function hasTotal(): bool
     {
         return $this->hasTotal;
+    }
+
+    public function hasSecondaryHeaderSelect(): bool
+    {
+        return $this->hasSecondaryHeaderSelect;
     }
 }

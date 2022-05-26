@@ -6,17 +6,26 @@ use App\ColumnData;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\GeneralLedger;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
+use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
 class VOne extends DataTableComponent
 {
     protected $model = GeneralLedger::class;
 
-    public $columnsMeta;
+    public array $columnsMeta = [];
 
     public function configure(): void
     {
         $this->setPrimaryKey('id')
+            ->setTableAttributes([
+                'class' => 'table-auto min-w-full',
+                'default' => false,
+            ])->setTbodyAttributes([
+                'class' => '',
+                'default' => false,
+            ])
             ->setThSortButtonAttributes(function (Column $column) {
                 return [
                     'class' => 'flex flex-row font-medium uppercase',
@@ -69,12 +78,46 @@ class VOne extends DataTableComponent
             });
     }
 
+    public function filters(): array
+    {
+        return $this->secondaryHeaderSelectFilters();
+    }
+
+    protected function secondaryHeaderSelectFilters(){
+        $filters = [];
+        foreach ($this->columnsMeta as $columnMeta) {
+            $columnData = ColumnData::from($columnMeta);
+            if ($columnData->hasSecondaryHeaderSelect()) {
+                $filter = SelectFilter::make($columnData->getLabel(), $columnData->getName())
+                    ->options($columnData->getOptions())
+                    ->filter(function (Builder $builder, string $value) use ($columnData) {
+                        if ($value) {
+                            $builder->where($columnData->getName(), $value);
+                        }
+                    })
+                    ->hiddenFromMenus();
+                $filters[$columnData->getName()] = $filter;
+            }
+        }
+        return $filters;
+    }
+
     public function columns(): array
     {
         $columns = [];
         foreach ($this->columnsMeta as $columnMeta) {
             $columnData = ColumnData::from($columnMeta);
             $column = Column::make($columnData->getLabel(), $columnData->getName());
+            if ($columnData->hasSecondaryHeaderSelect()) {
+                $column->secondaryHeader(
+                    function () use ($columnData) {
+                        return view('livewire-tables.select-filter', [
+                                'component' => $this,
+                                'filter' => $this->filters()[$columnData->getName()],
+                            ]);
+                    }
+                );
+            }
             if ($columnData->isSortable()) {
                 $column->sortable();
             }

@@ -30,7 +30,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/year.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/year.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -39,7 +39,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/month.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/month.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -48,7 +48,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/date.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/date.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -57,7 +57,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/department.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/department.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -66,7 +66,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/account_holder.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/account_holder.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -75,7 +75,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/status.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/status.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -84,7 +84,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/transaction_type.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/transaction_type.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -92,7 +92,7 @@ Route::get('/v1', function () {
             ->secondaryHeaderView('header-select')
             ->class('whitespace-nowrap text-xs p-1')
             ->headerClass($tHeadLeftClass)
-            ->options(include(base_path('bootstrap/cache/check_number.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/check_number.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -101,7 +101,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/payee.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/payee.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -110,7 +110,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/transaction_id.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/transaction_id.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -119,7 +119,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/project.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/project.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -128,7 +128,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/reference_number.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/reference_number.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -137,7 +137,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/division.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/division.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -146,7 +146,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/account.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/account.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -155,7 +155,7 @@ Route::get('/v1', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/memo.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/memo.php')))
             ->sortable()
             ->searchable()
             ->toArray(),
@@ -205,7 +205,7 @@ Route::get('/my-table', function () {
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
-            ->options(include(base_path('bootstrap/cache/year.php')))
+            ->secondaryHeaderSelect(include(base_path('bootstrap/cache/year.php')))
             ->toArray(),
         (new \App\ColumnData('month', 'Month'))
             ->class('whitespace-nowrap text-xs p-1')
