@@ -151,7 +151,7 @@ Route::get('/v1', function () {
             ->searchable()
             ->toArray(),
         (new \App\ColumnData('memo', 'Memo'))
-            ->class('text-xs tracking-tighter p-1 whitespace-nowrap')
+            ->class('text-xs tracking-tighter p-1 whitespace-normal')
             ->headerClass($tHeadLeftClass)
             ->secondaryHeaderClass('whitespace-nowrap justify-start')
             ->secondaryHeaderView('header-select')
@@ -178,15 +178,10 @@ Route::get('/v1', function () {
             ->searchable()
             ->toArray(),
     ];
-
-    $model = new GeneralLedger;
-
-    $row = (new \App\RowData)
-        ->evenClass('bg-gray-100 border-red-500 border-b border-t')
-        ->oddClass('bg-white border-gray-500 border-b border-t')
-        ->toArray();
-
+    
     $config = (new \App\DatatableConfig)
+        ->perPage(10)
+        ->perPageOptions([10, 25, 50, 100])
         ->withDateFilters('date')
         ->toolbarLeftEnd('livewire-tables.table-actions')
         ->evenClass('bg-gray-100 border-gray-500 border-b border-t')
