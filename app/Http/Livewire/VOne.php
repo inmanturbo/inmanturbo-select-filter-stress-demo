@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\ColumnData;
+use App\DatatableConfig;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\GeneralLedger;
@@ -15,15 +16,23 @@ class VOne extends DataTableComponent
     protected $model = GeneralLedger::class;
 
     public array $columnsMeta = [];
+    public array $configMeta = [];
 
     public function configure(): void
     {
+        $config = DatatableConfig::from($this->configMeta);
         $this->setPrimaryKey('id')
+            ->setTrAttributes(function ($row, $index) use ($config) {
+                return [
+                    'class' => $config->getTrClass($index),
+                    'default' => false,
+                ];
+            })
             ->setTableAttributes([
-                'class' => 'table-auto min-w-full',
+                'class' => $config->getTableClass(),
                 'default' => false,
             ])->setTbodyAttributes([
-                'class' => '',
+                'class' => $config->getTBodyClass(),
                 'default' => false,
             ])
             ->setThSortButtonAttributes(function (Column $column) {

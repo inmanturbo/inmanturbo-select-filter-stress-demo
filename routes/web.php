@@ -160,7 +160,7 @@ Route::get('/v1', function () {
             ->searchable()
             ->toArray(),
         (new \App\ColumnData('debit', 'Debit'))
-            ->class('whitespace-nowrap text-xs text-right text-red-500 border border-red-500 p-1')
+            ->class('whitespace-nowrap text-xs text-right text-red-500 p-1')
             ->headerClass($tHeadRightClass)
             ->secondaryHeaderClass('whitespace-nowrap text-xs text-right text-red-500')
             ->footerClass('whitespace-nowrap text-xs text-right text-red-500')
@@ -189,11 +189,19 @@ Route::get('/v1', function () {
     $model = new GeneralLedger;
 
     $row = (new \App\RowData)
-        ->evenClass('bg-gray-100 border-gray-500 border-b border-t')
+        ->evenClass('bg-gray-100 border-red-500 border-b border-t')
         ->oddClass('bg-white border-gray-500 border-b border-t')
         ->toArray();
 
-    return view('v1', compact('columns', 'row' ,'model'));
+    $config = (new \App\DatatableConfig)
+        ->evenClass('bg-gray-100 border-gray-500 border-b border-t')
+        ->oddClass('bg-white border-gray-500 border-b border-t')
+        ->tableClass('w-full')
+        ->tBodyClass('bg-white')
+        ->toArray();
+
+
+    return view('v1', compact('columns', 'config'));
 });
 
 Route::get('/my-table', function () {
@@ -306,7 +314,7 @@ Route::get('/my-table', function () {
             ->options(include(base_path('bootstrap/cache/memo.php')))
             ->toArray(),
         (new \App\ColumnData('debit', 'Debit'))
-            ->class('whitespace-nowrap text-xs text-right text-red-500 border border-red-500 p-1')
+            ->class('whitespace-nowrap text-xs text-right text-red-500 p-1')
             ->headerClass('whitespace-nowrap bg-gray-50 text-sm text-right')
             ->secondaryHeaderClass('whitespace-nowrap text-xs text-right text-red-500')
             ->footerClass('whitespace-nowrap text-xs text-right text-red-500')

@@ -3033,12 +3033,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/inmanturbo/laravel-livewire-tables.git",
-                "reference": "86a3d1f7f1904002a24d6d0133fd363cc3afee23"
+                "reference": "fc1dcd4f3b9856ca4766b68d1400b7ff898f1ded"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/inmanturbo/laravel-livewire-tables/zipball/86a3d1f7f1904002a24d6d0133fd363cc3afee23",
-                "reference": "86a3d1f7f1904002a24d6d0133fd363cc3afee23",
+                "url": "https://api.github.com/repos/inmanturbo/laravel-livewire-tables/zipball/fc1dcd4f3b9856ca4766b68d1400b7ff898f1ded",
+                "reference": "fc1dcd4f3b9856ca4766b68d1400b7ff898f1ded",
                 "shasum": ""
             },
             "require": {
@@ -3110,7 +3110,7 @@
                     "url": "https://github.com/rappasoft"
                 }
             ],
-            "time": "2022-05-18T20:16:23+00:00"
+            "time": "2022-05-26T19:55:41+00:00"
         },
         {
             "name": "spatie/laravel-data",

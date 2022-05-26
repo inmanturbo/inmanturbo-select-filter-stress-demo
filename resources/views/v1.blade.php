@@ -31,7 +31,7 @@
     </nav>
 
     </div class="mt-6">
-        @livewire('v-one', ['columnsMeta' => $columns, 'rowData' => $row, 'model' => $model, 'config' => ['dateColumn' => 'date']])
+        @livewire('v-one', ['columnsMeta' => $columns, 'configMeta' => $config,])
     </div>
 
     <livewire:scripts />
