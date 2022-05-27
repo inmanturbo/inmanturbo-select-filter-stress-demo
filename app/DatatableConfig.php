@@ -7,6 +7,7 @@ use Spatie\LaravelData\Data;
 class DatatableConfig extends Data
 {
     public function __construct(
+        public string $modelBaseName = '',
         public string $tableClass = '',
         public string $tBodyClass = '',
         public string $evenTrClass = '',
@@ -16,7 +17,15 @@ class DatatableConfig extends Data
         public bool $hasDateFilters = false,
         public int $perPage = 25,
         public array $perPageOptions = [25, 50, 100, 250, 500],
+        public array $toolbarLeftEndItems = [],
     ) {
+    }
+
+    public function modelBaseName($modelBaseName): self
+    {
+        $this->modelBaseName = $modelBaseName;
+
+        return $this;
     }
 
     public function perPage(int $perPage): self
@@ -41,6 +50,19 @@ class DatatableConfig extends Data
         return $this;
     }
 
+    public function toolbarLeftEndItems(array $items, $view = 'livewire-tables.toolbar-left-end'): self
+    {
+        $this->toolBarLeftEnd($view);
+        $this->toolbarLeftEndItems = $items;
+
+        return $this;
+    }
+
+    public function getToolBarLeftEndItems(): array
+    {
+        return $this->toolbarLeftEndItems;
+    }
+
     public function toolbarLeftStart($view): self
     {
         $this->configurableAreas['toolbar-left-start'] = $view;
@@ -48,7 +70,7 @@ class DatatableConfig extends Data
         return $this;
     }
 
-    public function toolbarLeftEnd($view): self
+    public function toolbarLeftEnd($view = 'livewire-tables.toolbar-left-end'): self
     {
         $this->configurableAreas['toolbar-left-end'] = $view;
 

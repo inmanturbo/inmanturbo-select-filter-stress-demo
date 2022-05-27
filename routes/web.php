@@ -178,12 +178,13 @@ Route::get('/v1', function () {
             ->searchable()
             ->toArray(),
     ];
-    
+
     $config = (new \App\DatatableConfig)
+        ->modelBaseName('general_ledgers')
+        ->toolbarLeftEndItems(['livewire-tables.export-all', 'livewire-tables.export-page', 'livewire-tables.reset', 'livewire-tables.year-to-date'])
         ->perPage(10)
         ->perPageOptions([10, 25, 50, 100])
         ->withDateFilters('date')
-        ->toolbarLeftEnd('livewire-tables.table-actions')
         ->evenClass('bg-gray-100 border-gray-500 border-b border-t')
         ->oddClass('bg-white border-gray-500 border-b border-t')
         ->tableClass('w-full')

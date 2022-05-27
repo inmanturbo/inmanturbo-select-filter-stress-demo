@@ -8,6 +8,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\GeneralLedger;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -19,10 +20,45 @@ use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
 class VOne extends DataTableComponent
 {
-    protected $model = GeneralLedger::class;
+    public ?string $modelBaseName = null;
 
     public array $columnsMeta = [];
     public array $configMeta = [];
+
+    /**
+    * The base query.
+    */
+    public function builder() : Builder
+    {
+        if (!isset($this->modelBaseName)) {
+            return $this->hasModel() ? parent::builder() : abort(404);
+        }
+        
+        $classBaseName = str_replace('_', '', ucwords($this->modelBaseName, '_'));
+        $className = 'App\\Models\\' . $classBaseName;
+
+        if (file_exists(base_path('app/Models/' . $classBaseName . '.php')) && class_exists($className)) {
+            return (new $className)->query();
+        }
+
+        //check if there is a database table with the same name
+        if (Schema::hasTable($this->modelBaseName)) {
+
+            $GLOBALS['livewire-tables-database-table-name'] = $this->modelBaseName;
+
+            $model = new class extends \Illuminate\Database\Eloquent\Model {
+
+                public function getTable()
+                {
+                    return $GLOBALS['livewire-tables-database-table-name'];
+                }
+            };
+          
+            return $model->query();
+        }
+
+        return abort(404);
+    }
 
     public function configure(): void
     {
@@ -105,8 +141,7 @@ class VOne extends DataTableComponent
     {
         $dateFilters = [];
         $config = DatatableConfig::from($this->configMeta);
-        if($config->hasDateFilters()){
-       
+        if ($config->hasDateFilters()) {
             $dateFilters['date_from'] = DateFilter::make('Date From')
                 ->filter(function (Builder $builder, string $value) use ($config) {
                     if ($value) {
@@ -124,7 +159,8 @@ class VOne extends DataTableComponent
         return $dateFilters;
     }
 
-    protected function secondaryHeaderSelectFilters(){
+    protected function secondaryHeaderSelectFilters()
+    {
         $filters = [];
         foreach ($this->columnsMeta as $columnMeta) {
             $columnData = ColumnData::from($columnMeta);
@@ -141,6 +177,12 @@ class VOne extends DataTableComponent
             }
         }
         return $filters;
+    }
+
+    public function boot(): void
+    {
+        parent::boot();
+        $this->setQueryStringAlias(basename(request()->path()) .'-'. $this->getDataTableFingerprint());
     }
 
     public function columns(): array
